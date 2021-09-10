@@ -95,10 +95,10 @@ export default function Home() {
   /*
   * Set apiUrl and api component details
   */
-
   const [photo, setPhoto] = useState([]);
 
   const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-09-06&end_date=2021-09-09`;
+  //https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-09-06&end_date=2021-09-06
 
   const getPhotos = useRef(() => {});
 
@@ -107,7 +107,7 @@ export default function Home() {
     .get(apiUrl)
       .then((response) => {
         // handle success
-        console.log(response.data);
+        console.log(response);
         setPhoto(response.data);
       })
       .catch((err) => {
@@ -228,9 +228,9 @@ export default function Home() {
       >
         <div className={classes.drawerHeader} />
         {photo.map((photos) => (
-          <PhotoCard key={photos.date} photoData={photo} />
-        ))}
-        <PhotoCard photoData={photo} />
+          <PhotoCard key={photos.date} photo={photo} />
+      ))}
+        {/* <PhotoCard photo={photo} /> */}
       </div>
     </div>
     </div>

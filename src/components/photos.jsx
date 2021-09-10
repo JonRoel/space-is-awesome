@@ -3,20 +3,20 @@ import React from "react"
 export default class PhotoCard extends React.Component {
   
     render() {
-      const { photoData } = this.props;
+      const { photo } = this.props;
       return (
         <div>
         <div className="nasa-photo">
-          {photoData.media_type === "image" ? (
+          {photo.media_type === "image" ? (
             <img
-              src={photoData.url}
-              alt={photoData.title}
+              src={photo.url}
+              alt={photo.title}
               className="photo"
             />
           ) : (
             <iframe
               title="space-video"
-              src={photoData.url}
+              src={photo.url}
               frameBorder="0"
               allow="encrypted-media"
               allowFullScreen
@@ -24,8 +24,8 @@ export default class PhotoCard extends React.Component {
             />
           )}
         </div>
-        <h2>Title: {photoData.title}</h2>
-        <p className="date">date: {photoData.date}</p>
+        <h2>Title: {photo.title}</h2>
+        <p className="date">date: {photo.date}</p>
           
         </div>
       )
