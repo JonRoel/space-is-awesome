@@ -1,0 +1,30 @@
+.nasaPhoto {
+  width:100%;
+}
+
+.nasaPhotoCard {
+  width:100%;
+}
+.cardWrapper {
+  display:flex;
+}
+
+.hdNasaPhoto {
+  max-height:98vh;
+}
+
+.hdModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* max-height: 98vh; */
+  overflow-y: auto;
+  margin-top: 10px;
+}
+.hdModal-Content {
+  background-color: #000;
+  border: 2px solid #bababa;
+  padding: 10px;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}

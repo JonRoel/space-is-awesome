@@ -1,9 +1,12 @@
 // src/components/Home.js
 
-import React, { useEffect, useState, useRef, Component } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import PhotoCard from './photos'
 import axios from 'axios';
+
+import './home-view.scss';
+import moment from 'moment';
 
 // Material Components
 import 'date-fns';
@@ -22,6 +25,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Button from '@material-ui/core/button';
+
+import Masonry from 'react-masonry-css'
 
 
 /*
@@ -77,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
+    marginTop: 30,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -84,60 +91,60 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+    marginTop: 30,
   },
+  updateButton: {
+    margin: theme.spacing(4),
+  }
 }));
 
 const apiKey = process.env.REACT_APP_NASA_KEY;
 
-
-export default class Home extends React.Compoent {
-  constructor() {
-    super();
-    this.state = {
-      photo: [],
-      setPhoto: [],
-      apiUrl: `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=2021-09-05`,
-      open: true,
-      setOpen: true,
-    }
-  }
+export default function Home() {
+  // Breakpoint keys for masonry grid
+  const breakpointColumnsObj = {
+    default: 3,
+    1400: 3,
+    1200: 2,
+    1000: 1
+  };
 
   /*
   * Set apiUrl and api component details
   */
+  const [photo, setPhoto] = useState([]);
 
-  //https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-09-06&end_date=2021-09-10
+  // Set Start Date for Date Range
+  const [apiStartDate, setApiStartDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
-  getPhotos = () => {
+  const getPhotos = useRef(() => {});
+
+  getPhotos.current = () => {
     axios
-    .get(this.state.apiUrl)
+    .get(apiUrl)
       .then((response) => {
         // handle success
         console.log(response);
-        const myPhotos = response.data;
-        setPhoto(myPhotos);
+        setPhoto(response.data);
       })
       .catch((err) => {
         // handle error
         console.log(err);
-      }); []
+      });
   };
 
   // End of API
 
   const classes = useStyles();
   const theme = useTheme();
+  const [open, setOpen] = React.useState(true); // starts open
 
-  handleDrawerOpen = () => {
-    this.setState({
-      setOpen: true
-    });
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  handleDrawerClose = () => {
-    this.setState({
-      setOpen: false
-    });
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
   /*
@@ -145,25 +152,27 @@ export default class Home extends React.Compoent {
   */
 
   const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    console.log(date);
+    console.log(startDate);
   };
 
-  const handleEndDateChange = (date) => {
-    setEndDate(date);
-    console.log(date);
-  };
+  const apiStartDateFormatter = moment(startDate).format('YYYY-MM-DD');
 
-  // API -------------------------------
+  const updateDateRange = () => {
+    setApiStartDate(apiStartDateFormatter);
+    console.log(apiStartDateFormatter);
+    getPhotos.current();
+  }
 
-  componentDidMount() {
-    // api call
-    fetch(this.state.apiUrl).then(resp=>resp.json())
-    .then(resp=>this.setState({photo:resp))
-  };
+  useEffect(() => {getPhotos.current()}, [])
+
+  const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=${apiStartDate}&end_date=2021-09-09` //`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-09-06&end_date=2021-09-09`;
+  //https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=2021-09-06&end_date=2021-09-06
+  // Filterable URL 
+  //https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date={startDate}&end_date=2021-09-09
+
 
   return (
     <div className="home">
@@ -189,7 +198,7 @@ export default class Home extends React.Compoent {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            SPACE IS AWESOME
           </Typography>
         </Toolbar>
       </AppBar>
@@ -221,32 +230,35 @@ export default class Home extends React.Compoent {
               'aria-label': 'change date',
             }}
           />
-          <KeyboardDatePicker
-            margin="normal"
-            id="date-picker-end"
-            label="End Date"
-            format="yyyy/MM/dd"
-            value={endDate}
-            onChange={handleEndDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
+          
         </Grid>
       </MuiPickersUtilsProvider>
         <Divider />
+        <Button onClick={updateDateRange} variant="contained" size="medium" color="primary" className={classes.updateButton}>
+          UPDATE
+        </Button>
       </Drawer>
-      <div
+      <Grid container spacing={3}
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
-        {/* {photo.map((photos) => (
-          <PhotoCard key={photos.date} photoData={photo} />
-        ))} */}
-        <PhotoCard photoData={photo} />
-      </div>
+      
+
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column">
+
+
+        {photo.map((photos) => (
+          <Grid key={photos.date} item>
+            <PhotoCard photo={photos} />
+          </Grid>
+      ))}
+
+      </Masonry>
+      </Grid>
     </div>
     </div>
   );
