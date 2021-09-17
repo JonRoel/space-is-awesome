@@ -1,4 +1,5 @@
 {
+  "homepage": "https://jonroel/github.io/space-is-awesome",
   "name": "space-is-awesome",
   "version": "0.1.0",
   "private": true,
@@ -23,6 +24,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -47,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^3.2.3",
     "sass": "^1.39.2"
   }
 }
