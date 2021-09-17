@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/github.io/space-is-awesome/static/css/main.4668cad9.chunk.css",
+    "main.js": "/github.io/space-is-awesome/static/js/main.f861a2e4.chunk.js",
+    "main.js.map": "/github.io/space-is-awesome/static/js/main.f861a2e4.chunk.js.map",
+    "runtime-main.js": "/github.io/space-is-awesome/static/js/runtime-main.b75e62b5.js",
+    "runtime-main.js.map": "/github.io/space-is-awesome/static/js/runtime-main.b75e62b5.js.map",
+    "static/js/2.c2c384b3.chunk.js": "/github.io/space-is-awesome/static/js/2.c2c384b3.chunk.js",
+    "static/js/2.c2c384b3.chunk.js.map": "/github.io/space-is-awesome/static/js/2.c2c384b3.chunk.js.map",
+    "index.html": "/github.io/space-is-awesome/index.html",
+    "static/css/main.4668cad9.chunk.css.map": "/github.io/space-is-awesome/static/css/main.4668cad9.chunk.css.map",
+    "static/js/2.c2c384b3.chunk.js.LICENSE.txt": "/github.io/space-is-awesome/static/js/2.c2c384b3.chunk.js.LICENSE.txt",
+    "static/media/spacelogo.523cced7.png": "/github.io/space-is-awesome/static/media/spacelogo.523cced7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b75e62b5.js",
+    "static/js/2.c2c384b3.chunk.js",
+    "static/css/main.4668cad9.chunk.css",
+    "static/js/main.f861a2e4.chunk.js"
+  ]
+}
