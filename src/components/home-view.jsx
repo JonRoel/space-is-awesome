@@ -1,7 +1,7 @@
 // src/components/Home.js
 
 import React from "react";
-import { PhotoCard } from './photos'
+import PhotoCard from './photos'
 import axios from 'axios';
 
 import './home-view.css';
@@ -111,6 +111,10 @@ const styles = theme => createStyles ({
   },
 });
 
+/*
+ * API Key
+*/
+
 const apiKey = process.env.REACT_APP_NASA_KEY;
 
 class Home extends React.Component {
@@ -132,7 +136,6 @@ class Home extends React.Component {
       startDate: moment(new Date()).subtract(7, 'd'),
       endDate: new Date(),
     };
-    //this.handleDrawerClose = this.handleDrawerClose.bind(this);
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleCloseAlert = this.handleCloseAlert.bind(this);
   }
@@ -155,6 +158,10 @@ class Home extends React.Component {
       });
   };
 
+  /*
+   * Functions for side panel, set to open by default
+  */
+
   handleDrawerOpen = () => {
     if(this.state.open === false) {
       this.setState({ open: true });
@@ -163,6 +170,11 @@ class Home extends React.Component {
     }
     console.log(this.state.open)
   };
+
+
+  /*
+   * Set date change when date picker value changes and stores in state
+  */
 
   handleStartDateChange = (date) => {
     this.setState({startDate: date},
@@ -175,7 +187,7 @@ class Home extends React.Component {
       () => {console.log(this.state.endDate)});
   };
 
-  updateDateRange = () => {
+  updateDateRange = () => { // Required for setting the api start and end dates
     const apiStartDateFormatter = moment(this.state.startDate).format('YYYY-MM-DD');
     const apiEndDateFormatter = moment(this.state.endDate).format('YYYY-MM-DD');
     this.setState({
@@ -192,6 +204,7 @@ class Home extends React.Component {
   /*
    * Set alert function for explore button
   */
+
   handleExploreAlert() {
     this.setState({ openAlert: true });
   };
@@ -221,128 +234,139 @@ class Home extends React.Component {
 
     return (
       <div className="home">
+
         {/* Drawer and content */}
+        
         <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(
-            classes.appBar, 
-            {[classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon className="hamburgerIcon" />
-              <h5>
-                SPACE IS AWESOME
-            </h5>
-            </IconButton>
-            
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerContent,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerOpen}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-
-          <img src={spacelogo} alt="Logo" />
-          <div className="paragraph"><p>Select a date to see more of our amazing galaxy. There's a new picture every day. So the further in the past you go, the more there is to see.</p></div>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container justifyContent="space-around">
-            <KeyboardDatePicker
-              className="datePicker"
-              margin="normal"
-              disableFuture={true}
-              maxDate={this.state.endDate}
-              maxDateMessage='Start Date cannot exceed End Date'
-              id="date-picker-start"
-              label="Start Date"
-              format="yyyy/MM/dd"
-              showTodayButton={true}
-              onChange={this.handleStartDateChange}
-              value={moment(this.state.startDate)}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-
-            <KeyboardDatePicker
-              className="datePicker"
-              margin="normal"
-              disableFuture={true}
-              id="date-picker-end"
-              label="End Date"
-              format="yyyy/MM/dd"
-              minDate={moment(this.state.startDate).add(1,'d')}
-              minDateMessage="End Date cannot precede Start Date"
-              value={moment(this.state.endDate)}
-              showTodayButton={true}
-              onChange={this.handleEndDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-            
-          </Grid>
-        </MuiPickersUtilsProvider>
-          
-          <Divider />
-          
-          <Button onClick={this.updateDateRange} variant="contained" size="medium" className={classes.updateButton}>
-            EXPLORE
-          </Button>
-
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
+          <CssBaseline />
+          <AppBar
+            position="fixed"
+            className={clsx(
+              classes.appBar, 
+              {[classes.appBarShift]: open,
+            })}
+          >
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, open && classes.hide)}
+              >
+                <MenuIcon className="hamburgerIcon" />
+                <h5>
+                  SPACE IS AWESOME
+                </h5>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+        
+          {/* Side Panel Starts */}
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerContent,
             }}
-            open={this.state.openAlert}
-            autoHideDuration={4000}
-            onClose={this.handleCloseAlert}
-            message="A long date range may result in a long load time. Be patient :)"
-            action={
-              <React.Fragment>
-                <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleCloseAlert}>
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </React.Fragment>
-            }
-          />
-        </Drawer>
-        <Grid container spacing={3}
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
-        {loading}
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column" >
+          >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={this.handleDrawerOpen}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              </IconButton>
+            </div>
             
-            {photos.length ? photos : <h2>Sorry, no results. You either tried looking in the future or something else went wrong. If you successfully do see future results, please let me know, I must have discovered time travel.</h2>}
-        </Masonry>
-        </Grid>
-      </div>
+            <Divider />
+
+            <img src={spacelogo} alt="Logo" />
+            
+            <div className="paragraph"><p>Select a date to see more of our amazing galaxy. There's a new picture every day. So the further in the past you go, the more there is to see.</p></div>
+            
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            
+              <Grid container justifyContent="space-around">
+                <KeyboardDatePicker
+                  className="datePicker"
+                  margin="normal"
+                  disableFuture={true}
+                  maxDate={this.state.endDate}
+                  maxDateMessage='Start Date cannot exceed End Date'
+                  id="date-picker-start"
+                  label="Start Date"
+                  format="yyyy/MM/dd"
+                  showTodayButton={true}
+                  onChange={this.handleStartDateChange}
+                  value={moment(this.state.startDate)}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+
+                <KeyboardDatePicker
+                  className="datePicker"
+                  margin="normal"
+                  disableFuture={true}
+                  id="date-picker-end"
+                  label="End Date"
+                  format="yyyy/MM/dd"
+                  minDate={moment(this.state.startDate).add(1,'d')}
+                  minDateMessage="End Date cannot precede Start Date"
+                  value={moment(this.state.endDate)}
+                  showTodayButton={true}
+                  onChange={this.handleEndDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+                
+              </Grid>
+            </MuiPickersUtilsProvider>
+          
+            <Divider />
+            
+            <Button onClick={this.updateDateRange} variant="contained" size="medium" className={classes.updateButton}>
+              EXPLORE
+            </Button>
+
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              open={this.state.openAlert}
+              autoHideDuration={4000}
+              onClose={this.handleCloseAlert}
+              message="A long date range may result in a long load time. Be patient :)"
+              action={
+                <React.Fragment>
+                  <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleCloseAlert}>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
+          </Drawer>
+      
+          {/* End of side panel */}
+        
+          {/* Photo Content */}
+      
+          <Grid container spacing={3}
+            className={clsx(classes.content, {
+              [classes.contentShift]: open,
+            })}
+          >
+            {loading}
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column" >      
+                {photos.length ? photos : <h2>Sorry, no results. You either tried looking in the future or something else went wrong. If you successfully do see future results, please let me know, I must have discovered time travel.</h2>}
+            </Masonry>
+          </Grid>
+        </div>
       </div>
     );
   }

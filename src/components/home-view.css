@@ -1,24 +1,18 @@
-body {
-  background-color: #4b4b4b;
-}
-.MuiAppBar-colorPrimary {
-  background-color: #127e7a !important;
-}
-
+/* Styles for Grid Layout */
 .my-masonry-grid {
-  display: -webkit-box; /* Not needed if autoprefixing */
-  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: -webkit-box; 
+  display: -ms-flexbox; 
   display: flex;
-  margin-left: -30px; /* gutter size offset */
+  margin-left: -30px; 
   width: auto;
 }
 .my-masonry-grid_column {
-  padding-left: 30px; /* gutter size */
+  padding-left: 30px; 
   background-clip: padding-box;
 }
 
-/* Style your items */
-.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+/* Style for grid items (photo cards) */
+.my-masonry-grid_column > div { 
   margin-bottom: 30px;
   border-radius:4px;
 }
@@ -26,8 +20,9 @@ body {
   width:100% !important;
 }
 
-.no-display {
-  display:none;
+/* Main layout and sidebar styles */
+.MuiAppBar-colorPrimary {
+  background-color: #127e7a !important;
 }
 
 .MuiCircularProgress-colorPrimary {
@@ -35,8 +30,11 @@ body {
   background: transparent !important;
   position: fixed;
   top: 50%;
-  left: 50%; 
-  
+  left: 50%;  
+}
+
+.no-display {  
+  display:none;
 }
 
 .paragraph {
@@ -69,4 +67,18 @@ body {
 
 .MuiSnackbarContent-root {
   background-color: #127e7a !important;
+}
+
+/* Styles for calendar popup */
+
+.MuiPickersCalendarHeader-iconButton {
+  background-color: transparent !important;
+}
+
+.MuiPickersCalendarHeader-switchHeader {
+  background-color: #9faeff !important;
+}
+
+.MuiPickersBasePicker-pickerView {
+  margin-top: -7px;
 }

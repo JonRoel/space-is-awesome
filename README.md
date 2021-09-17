@@ -1,3 +1,7 @@
+# Space is Awesome
+
+This is a react project using Nasa photo of the day API. This application allows users to set a date range and view the images or videos provided by the api. Users can alos check out the HD version of all photo's. There is an option to favorites the photos, however these are not persistent yet. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,35 +1,27 @@
 import React from "react";
 
 //Material UI components
-import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Tooltip from '@material-ui/core/tooltip';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Tooltip, 
+  Card, 
+  CardContent, 
+  CardActions, 
+  Collapse, 
+  IconButton, 
+  Typography, 
+  Modal, 
+  Backdrop, } 
+    from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import HdIcon from '@material-ui/icons/Hd';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
-//styles
+// Styles
 import './photos.css';
 
-let useStyles = () => ({
- // Card Component
-  media: {
-    height: 0,
-    paddingTop: '56.25%',
-  },
-});
-
-export class PhotoCard extends React.Component {
+export default class PhotoCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +32,10 @@ export class PhotoCard extends React.Component {
     }
     this.handleExpandClick = this.handleExpandClick.bind(this);
   }
+
+  /*
+   * Functions for hidden content in cards
+  */
 
   handleExpandClick() {
     const { expanded } = this.state;
@@ -52,6 +48,10 @@ export class PhotoCard extends React.Component {
     this.setState({ expanded: false})
   }
 
+  /*
+   * Functions for the HD modal
+  */
+
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -59,6 +59,10 @@ export class PhotoCard extends React.Component {
   handleClose = () => {
     this.setState({ open: false});
   };
+
+  /*
+   * Sets Favorites, at this time it only changes the state to give the button a dynamic experience
+  */
 
   addToFaves = (e) => {
     if(!this.state.favoriteIconActive) {
@@ -96,49 +100,51 @@ export class PhotoCard extends React.Component {
 
     return (
       <div className="cardWrapper">    
-          {/* CARD START */}
-          <Card className="nasaPhotoCard">
+        {/* CARD START */}
+        <Card className="nasaPhotoCard">
           <CardContent>
-          <h1>{photo.title}</h1>
+            <h1>{photo.title}</h1>
             <Typography className="photoDateInfo">Published: {photo.date}</Typography>
           </CardContent>
 
-          {/* Imaage Detects media type for video or image rendering */}
+          {/* This will detect media type for video or image rendering */}
 
           {photo.media_type === "image" ? (
-              <img
-                src={photo.url}
-                alt={photo.title}
-                className="nasaPhoto"
-              />
-            ) : (
-              <iframe
-                title="space-video"
-                src={photo.url}
-                frameBorder="0"
-                //gesture="media"
-                allow="autoplay"
-                allowFullScreen
-                className="nasaPhoto"
-              />
-            )}
+            <img
+              src={photo.url}
+              alt={photo.title}
+              className="nasaPhoto"
+            />
+          ) : (
+            <iframe
+              title="space-video"
+              src={photo.url}
+              frameBorder="0"
+              allow="autoplay"
+              allowFullScreen
+              className="nasaPhoto"
+            />
+          )}
+
           <CardActions disableSpacing>
             <IconButton aria-label="favorites" onClick={this.addToFaves}>
               {favoritesIcon}
             </IconButton>
+            
+            {/* If media type is video, no HD icon will appear */}
             {photo.media_type === "image" ? (
               <Tooltip title="View HD Version" placement="right" arrow>
-              <IconButton onClick={this.handleOpen}>
-              <HdIcon />
-            </IconButton>
-            </Tooltip>
+                <IconButton onClick={this.handleOpen}>
+                  <HdIcon />
+                </IconButton>
+              </Tooltip>
             ) : (
               <div />
             )}
             <IconButton
-              className={clsx('expand', {
-                ['expandOpen']: expanded,
-              })}
+              className={
+                expanded ? 'expand' : 'expandOpen'
+              }
               onClick={this.handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
@@ -179,5 +185,3 @@ export class PhotoCard extends React.Component {
     );
   }
 }
-
-export default withStyles(useStyles) (PhotoCard);

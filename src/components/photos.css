@@ -5,6 +5,7 @@
 .nasaPhotoCard {
   width:100%;
 }
+
 .cardWrapper {
   display:flex;
 }
@@ -13,11 +14,10 @@
   max-height:98vh;
 }
 
-.hdModal {
+.hdModal { /* modal that displays HD image only */
   display: flex;
   align-items: center;
-  justify-content: center;
-  /* max-height: 98vh; */
+  justify-content: center; 
   overflow-y: auto;
   margin-top: 10px;
 }
@@ -32,10 +32,13 @@
 .expand {
   transform: rotate(0deg);
   margin-left: auto !important;
-  transition: transform 1s,
+  transition: transform 3s;
 }
+
 .expandOpen {
   transform: rotate(180deg);
+  margin-left: auto !important;
+  transition: transform 3s;
 }
 
 .faveIcon {
