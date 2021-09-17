@@ -1,5 +1,5 @@
 {
-  "homepage": "https://jonroel/github.io/space-is-awesome",
+  "homepage": "http://jonroel/github.io/space-is-awesome",
   "name": "space-is-awesome",
   "version": "0.1.0",
   "private": true,
@@ -52,5 +52,16 @@
   "devDependencies": {
     "gh-pages": "^3.2.3",
     "sass": "^1.39.2"
+  },
+  "description": "This is a react project using Nasa photo of the day API. This application allows users to set a date range and view the images or videos provided by the api. Users can alos check out the HD version of all photo's. There is an option to favorites the photos, however these are not persistent yet.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonRoel/space-is-awesome.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonRoel/space-is-awesome/issues"
   }
 }
