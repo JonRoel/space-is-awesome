@@ -10,10 +10,9 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-//import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import HdIcon from '@material-ui/icons/Hd';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -22,21 +21,11 @@ import Fade from '@material-ui/core/Fade';
 //styles
 import './photos.css';
 
-let styles = theme => ({
+let useStyles = () => ({
  // Card Component
   media: {
     height: 0,
     paddingTop: '56.25%',
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
   },
 });
 
@@ -46,6 +35,8 @@ export class PhotoCard extends React.Component {
     this.state = {
       open: false,
       expanded: false,
+      favoriteIconActive: false,
+      favorites: [],
     }
     this.handleExpandClick = this.handleExpandClick.bind(this);
   }
@@ -69,11 +60,39 @@ export class PhotoCard extends React.Component {
     this.setState({ open: false});
   };
 
+  addToFaves = (e) => {
+    if(!this.state.favoriteIconActive) {
+      this.setState({favoriteIconActive: true})
+      this.setState(state => {
+        const favorites = [...state.favorites, this.props.photo.url];
+        return {
+          favorites
+        }
+      });
+    } else {
+      this.setState({ favoriteIconActive: false })
+      var faves = [...this.state.favorites];
+      var index = faves.indexOf(e.target.value)
+      if (index !== -1) {
+        faves.splace(index, 1);
+        this.setState({ favorites: faves })
+        console.log( this.state.favorites);
+        };
+      };
+    }
+
   render() {
     const { photo } = this.props;
-    const classes = this.props;
     const { expanded } = this.state;
     const { open } = this.state;
+    
+    let favoritesIcon =  this.props;
+
+    if (!this.state.favoriteIconActive) {
+      favoritesIcon = <FavoriteBorderOutlinedIcon />;
+    } else {
+      favoritesIcon = <FavoriteIcon id="faveIcon" />;
+    };
 
     return (
       <div className="cardWrapper">    
@@ -97,18 +116,15 @@ export class PhotoCard extends React.Component {
                 title="space-video"
                 src={photo.url}
                 frameBorder="0"
-                gesture="media"
-                allow="encrypted-media"
+                //gesture="media"
+                allow="autoplay"
                 allowFullScreen
-                className="photo"
+                className="nasaPhoto"
               />
             )}
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteBorderOutlinedIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
+            <IconButton aria-label="favorites" onClick={this.addToFaves}>
+              {favoritesIcon}
             </IconButton>
             {photo.media_type === "image" ? (
               <Tooltip title="View HD Version" placement="right" arrow>
@@ -120,8 +136,8 @@ export class PhotoCard extends React.Component {
               <div />
             )}
             <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
+              className={clsx('expand', {
+                ['expandOpen']: expanded,
               })}
               onClick={this.handleExpandClick}
               aria-expanded={expanded}
@@ -164,4 +180,4 @@ export class PhotoCard extends React.Component {
   }
 }
 
-export default withStyles(styles) (PhotoCard);
+export default withStyles(useStyles) (PhotoCard);

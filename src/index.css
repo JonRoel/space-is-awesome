@@ -5,24 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:#4b4b4b !important;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.hdModal {
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'center';
-  max-height: '98vh';
-  overflow-y: 'auto';
-  margin-top: '10px';
-}
-.hdModal-Content {
-  background-color: '#000';
-  border: '2px solid #bababa';
-  padding: '10px';
-  margin-top: '26px';
 }

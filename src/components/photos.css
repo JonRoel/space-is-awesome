@@ -28,3 +28,34 @@
   margin-top: 50px;
   margin-bottom: 25px;
 }
+
+.expand {
+  transform: rotate(0deg);
+  margin-left: auto !important;
+  transition: transform 1s,
+}
+.expandOpen {
+  transform: rotate(180deg);
+}
+
+.faveIcon {
+  color: rgb(36, 145, 112);
+}
+
+.MuiCard-root {
+  overflow: hidden;
+  background-color: #282828 !important;
+  color: #fff !important;
+}
+
+.MuiInputBase-input { 
+  color:white !important;
+}
+
+.MuiInputLabel-animated {
+  color:white;
+}
+
+#faveIcon {
+  color: #127e7a;
+}

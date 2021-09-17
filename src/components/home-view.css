@@ -1,3 +1,10 @@
+body {
+  background-color: #4b4b4b;
+}
+.MuiAppBar-colorPrimary {
+  background-color: #127e7a !important;
+}
+
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
@@ -12,6 +19,54 @@
 
 /* Style your items */
 .my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
-  background: grey;
   margin-bottom: 30px;
+  border-radius:4px;
+}
+.my-masonry-grid_column {
+  width:100% !important;
+}
+
+.no-display {
+  display:none;
+}
+
+.MuiCircularProgress-colorPrimary {
+  color: #127e7a !important;
+  background: transparent !important;
+  position: fixed;
+  top: 50%;
+  left: 50%; 
+  
+}
+
+.paragraph {
+  margin:25px;
+}
+
+.datePicker {
+  color:#fff;
+}
+
+.MuiSvgIcon-root {
+  color:#fff;
+}
+
+.hamburgerIcon {
+  margin-right:25px;
+}
+
+.MuiFormLabel-root {
+  color: #127e7a !important;
+}
+
+.Mui-focused {
+  color: #127e7a !important;
+}
+
+.MuiInput-underline:after {
+  border-bottom: 2px solid #127e7a !important;
+}
+
+.MuiSnackbarContent-root {
+  background-color: #127e7a !important;
 }
