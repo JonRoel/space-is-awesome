@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/github.io/space-is-awesome/static/css/main.4668cad9.chunk.css",
-    "main.js": "/github.io/space-is-awesome/static/js/main.f861a2e4.chunk.js",
-    "main.js.map": "/github.io/space-is-awesome/static/js/main.f861a2e4.chunk.js.map",
+    "main.js": "/github.io/space-is-awesome/static/js/main.e5e5517c.chunk.js",
+    "main.js.map": "/github.io/space-is-awesome/static/js/main.e5e5517c.chunk.js.map",
     "runtime-main.js": "/github.io/space-is-awesome/static/js/runtime-main.b75e62b5.js",
     "runtime-main.js.map": "/github.io/space-is-awesome/static/js/runtime-main.b75e62b5.js.map",
     "static/js/2.c2c384b3.chunk.js": "/github.io/space-is-awesome/static/js/2.c2c384b3.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.b75e62b5.js",
     "static/js/2.c2c384b3.chunk.js",
     "static/css/main.4668cad9.chunk.css",
-    "static/js/main.f861a2e4.chunk.js"
+    "static/js/main.e5e5517c.chunk.js"
   ]
 }
