@@ -363,7 +363,7 @@ class Home extends React.Component {
               breakpointCols={breakpointColumnsObj}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column" >      
-                {photos.length ? photos : <h2>Sorry, no results. You either tried looking in the future or something else went wrong. If you successfully do see future results, please let me know, I must have discovered time travel.</h2>}
+                {photos.length ? photos : <h2>Sorry, no results.</h2>}
             </Masonry>
           </Grid>
         </div>
